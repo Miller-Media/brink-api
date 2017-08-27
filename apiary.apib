@@ -5,6 +5,13 @@ HOST: http://polls.apiblueprint.org/
 
 These are the API endpoints that we will feed data into from the Brink Airships. Initially, these will be loaded in after flights.
 
+## Throttling
+
+Since there is going to be a lot of data being transferred, we want to throttle the API calls. We could potential charge for a 'Pro' version for more calls. For now let's do this:
+
+• 1 API call per second  
+• 10,000 API calls per day (about three hours of API calls at one per second)
+
 ## Flights [/v1/flights/{flight_id}]
 
 ### Get All Flights [GET]
@@ -55,8 +62,7 @@ These are the API endpoints that we will feed data into from the Brink Airships.
                 "maxTemperature":65,
         }
 
-### Create a New Flight [POST]Ini
-Create the initial flight record in the DB.
+### Create a New Flight [POST]
 
 + Response 201 (application/json)
 
@@ -105,14 +111,44 @@ Create the initial flight record in the DB.
 
 + Request (application/json)
 
+    + Attributes
+        + timestamp: 1503873412 (required, number) - UNIX timestamp
+        + altitude: 1234 (required, number) - Altitude in meters
+        + barometricPressure: 1234143 (required, number) - Barometric pressure in (not sure what barometric is measured in?)
+        + coordinateX: 23.234 (required, number) - Current GPS X coordinate
+        + coordinateY: 60.234 (required, number) - Current GPS Y coordinate
+        + temperature: 31 (required, number) - Current temperature in Celsius
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "response":"success",
+                "message":"Flight data created."
+            }
+
+## Users [/v1/users]
+
+### Get User [GET]
+
++ Response 200 (application/json)
+
         {
-            "timestamp": 213412355,
-            "altitude": 1234,
-            "barometricPressure": 1234143,
-            "coordinateX": 23.234,
-            "coordinateY": 23.2352,
-            "temperature": 23
+            "id": 1nts
+            "firstName": "Walter",
+            "lastName": "White",
+            "email": "saymyname@savewalterwhite.com"
         }
+
+### Create New User [POST]
+
++ Request (application/json)
+    
+    + Attributes
+        + firstName: `Walter` (required, string) - User's first name
+        + lastName: `White` (required, string) - User's last name
+        + email: `saymyname@savewalterwhite.com` (required, string) - User's email
 
 + Response 201 (application/json)
 
