@@ -3,78 +3,122 @@ HOST: http://polls.apiblueprint.org/
 
 # Brink API
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+These are the API endpoints that we will feed data into from the Brink Airships. Initially, these will be loaded in after flights.
 
-## Questions Collection [/questions]
+## Flights [/v1/flights/{flight_id}]
 
-### List All Questions [GET]
+### Get All Flights [GET]
 
 + Response 200 (application/json)
 
         [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+            "9":{
+                "flightTime":12345,
+                "duration":32221,
+                "startCoordinateX":12.1432,
+                "startCoordinateY":112.2534,
+                "endCoordinateX":123.124,
+                "endCoordinateY":12.352,
+                "maxAltitude":124,
+                "minTemperature":12,
+                "maxTemperature":65,
+            },
+            "11":{
+                "flightTime":12345,
+                "duration":32221,
+                "startCoordinateX":12.1432,
+                "startCoordinateY":112.2534,
+                "endCoordinateX":123.124,
+                "endCoordinateY":12.352,
+                "maxAltitude":124,
+                "minTemperature":12,
+                "maxTemperature":65,
             }
         ]
 
-### Create a New Question [POST]
+### Get Single Flight [GET]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
++ Parameters
+    + flight_id (number) - ID of the flight in the form of an integer
 
-+ Request (application/json)
++ Response 200 (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+                "flightTime":12345,
+                "duration":32221,
+                "startCoordinateX":12.1432,
+                "startCoordinateY":112.2534,
+                "endCoordinateX":123.124,
+                "endCoordinateY":12.352,
+                "maxAltitude":124,
+                "minTemperature":12,
+                "maxTemperature":65,
         }
 
+### Create a New Flight [POST]Ini
+Create the initial flight record in the DB.
+
 + Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "response":"success",
+                "message":"Flight created.",
+                "id":9
+            }
+            
+## Flight Data [/v1/flights/{flight_id}/data{?postsPerPage,page}]
+
++ Parameters
+    + flight_id (number) - ID of the flight in the form of an integer
+
+### Get Data for Flight [GET]
+
++ Parameters
+    + postsPerPage (optional) - Number of records returned per page. Maximum 250.
+    + page (optional) - Page of results to return.
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "213412355": {
+                    "altitude": 1234,
+                    "barometricPressure": 1234143,
+                    "coordinateX": 23.234,
+                    "coordinateY": 23.2352,
+                    "temperature": 23
+                },
+                "213412360": {
+                    "altitude": 1240,
+                    "barometricPressure": 1234943,
+                    "coordinateX": 26.234,
+                    "coordinateY": 24.2352,
+                    "temperature": 20
+                },
+                "nextPage": 2
+            }
+
+### Create New Flight Data Record [POST]
+
++ Request (application/json)
+
+        {
+            "timestamp": 213412355,
+            "altitude": 1234,
+            "barometricPressure": 1234143,
+            "coordinateX": 23.234,
+            "coordinateY": 23.2352,
+            "temperature": 23
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "response":"success",
+                "message":"Flight data created."
             }
