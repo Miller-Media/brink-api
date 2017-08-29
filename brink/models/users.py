@@ -106,8 +106,6 @@ class ApiUser( BaseModel ):
     username = db.Column( 'username', db.String( 200 ), nullable=False, unique=True )
     password = db.Column( 'password', db.String( 200 ), nullable=False )
        
-    authTokens          = db.relationship( 'AuthToken', cascade="all, delete-orphan", lazy='dynamic' )
-    
     def setPassword( self, password ):
         """ Set the password for a user
         

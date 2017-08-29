@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from brink.models import User, AuthToken, DeviceToken
+from brink.models import User
 from brink.api.exceptions import ApiException
 from brink.exceptions import PasswordException
 import brink.api as api

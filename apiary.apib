@@ -89,23 +89,23 @@ Since there is going to be a lot of data being transferred, we want to throttle 
 
     + Body
 
-            {
-                "213412355": {
-                    "altitude": 1234,
-                    "barometricPressure": 1234143,
-                    "coordinateX": 23.234,
-                    "coordinateY": 23.2352,
-                    "temperature": 23
-                },
-                "213412360": {
-                    "altitude": 1240,
-                    "barometricPressure": 1234943,
-                    "coordinateX": 26.234,
-                    "coordinateY": 24.2352,
-                    "temperature": 20
-                },
-                "nextPage": 2
-            }
+		{
+			"213412355": {
+				"altitude": 1234,
+				"barometricPressure": 1234143,
+				"coordinateX": 23.234,
+				"coordinateY": 23.2352,
+				"temperature": 23
+			},
+			"213412360": {
+				"altitude": 1240,
+				"barometricPressure": 1234943,
+				"coordinateX": 26.234,
+				"coordinateY": 24.2352,
+				"temperature": 20
+			},
+			"nextPage": 2
+		}
 
 ### Create New Flight Data Record [POST]
 
@@ -123,23 +123,28 @@ Since there is going to be a lot of data being transferred, we want to throttle 
 
     + Body
 
-            {
-                "response":"success",
-                "message":"Flight data created."
-            }
+		{
+			"response":"success",
+			"message":"Flight data created."
+		}
 
-## Users [/v1/users]
+## Users [/v1/users/{user_id}]
 
 ### Get User [GET]
 
 + Response 200 (application/json)
 
+    + Body
+
         {
-            "id": 1nts
-            "firstName": "Walter",
-            "lastName": "White",
-            "email": "saymyname@savewalterwhite.com"
-        }
+		  "created": "Tue, 29 Aug 2017 16:08:36 GMT", 
+		  "email": "kcarwile@gmail.com", 
+		  "first_name": null, 
+		  "id": 1, 
+		  "last_name": null, 
+		  "modified": "Tue, 29 Aug 2017 16:08:36 GMT", 
+		  "username": "kcarwile"
+		}
 
 ### Create New User [POST]
 
@@ -154,7 +159,7 @@ Since there is going to be a lot of data being transferred, we want to throttle 
 
     + Body
 
-            {
-                "response":"success",
-                "message":"Flight data created."
-            }
+		{
+			"response":"success",
+			"message":"Flight data created."
+		}

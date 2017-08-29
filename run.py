@@ -1,5 +1,11 @@
 from brink import app
 
+# Load production config
+app.config.from_object( 'brink.config.production' )
+
+# Load shared
+app.config.from_object( 'brink.config.shared' )
+
 # Register all api endpoints
 import brink.api as api
 for version in api.versions:
