@@ -96,34 +96,3 @@ class UserMeta( BaseModel ):
         if len( args ) > 0 : self.key = args[0]
         if len( args ) > 1 : self.value = args[1]
         if len( kwargs ) > 0 : super( UserMeta, self ).__init__( **kwargs )
-        
-
-class ApiUser( BaseModel ):
-    """ An api user """
-    
-    __tablename__ = 'api_users'
-    
-    username = db.Column( 'username', db.String( 200 ), nullable=False, unique=True )
-    password = db.Column( 'password', db.String( 200 ), nullable=False )
-       
-    def setPassword( self, password ):
-        """ Set the password for a user
-        
-        Args:
-            password (str): 				The plain text password for the user
-            
-        Returns:
-            None
-            
-        Raises:
-            PasswordException:				An exception if the password is not acceptable
-        """
-        
-        from brink.exceptions import PasswordException
-        from werkzeug.security import generate_password_hash
-        
-        # error if password is empty
-        if password is None or password == '':
-            raise PasswordException( 'Password cannot be empty!' )
-        
-        self.password = generate_password_hash( password )
