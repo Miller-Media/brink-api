@@ -7,6 +7,24 @@ import brink.api as api
 # the blueprint that will be imported
 blueprint = Blueprint('flights', __name__)
 
+@blueprint.route('/flights', methods=['GET'])
+@api.handle_errors()
+@api.require_auth()
+def get_flights():
+    """ Create a new flight
+
+    Returns:
+        dict:		Api response
+        int:		Api response code (optional) (default: 201)
+        dict:		Api response headers (optional) (default: {})
+    """
+
+    user = api.getUser()
+       
+    return {
+               'flights': [ flight.id for flight in Flight.query.all() ]
+           }, 200
+           
 @blueprint.route('/flights', methods=['PUT'])
 @api.handle_errors()
 @api.require_auth()
@@ -34,7 +52,8 @@ def create_flight():
     flight.save()
     
     return {
-               'success': 'Flight created.'
+               'success': 'Flight created.',
+               'flight_id': flight.id
            }, 201
 
 @blueprint.route('/flights/<int:flight_id>', methods=['GET'])

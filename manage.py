@@ -1,8 +1,8 @@
-from audiobridge import app, db
+from brink import app, db
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-import audiobridge.models
+import brink.models
 
 # setup manager
 migrate = Migrate( app, db )
