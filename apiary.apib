@@ -51,38 +51,20 @@ Since there is going to be a lot of data being transferred, we want to throttle 
           "modified": "Tue, 29 Aug 2017 16:08:36 GMT"
         }
 
-## Flights [/v1/flights/{flight_id}]
+## Flights [/v1/flights]
 
-### Get All Flights [GET]
+### Get All Flights [GET /v1/flights]
+
+This endpoint will return a list of all available flight ids
 
 + Response 200 (application/json)
 
         [
-            "9":{
-                "flightTime":12345,
-                "duration":32221,
-                "startCoordinateX":12.1432,
-                "startCoordinateY":112.2534,
-                "endCoordinateX":123.124,
-                "endCoordinateY":12.352,
-                "maxAltitude":124,
-                "minTemperature":12,
-                "maxTemperature":65,
-            },
-            "11":{
-                "flightTime":12345,
-                "duration":32221,
-                "startCoordinateX":12.1432,
-                "startCoordinateY":112.2534,
-                "endCoordinateX":123.124,
-                "endCoordinateY":12.352,
-                "maxAltitude":124,
-                "minTemperature":12,
-                "maxTemperature":65,
-            }
+            9,
+            11,
         ]
 
-### Get Single Flight [GET]
+### Get Single Flight [GET /v1/flights/{flight_id}]
 
 + Parameters
     + flight_id (number) - ID of the flight in the form of an integer
@@ -101,7 +83,12 @@ Since there is going to be a lot of data being transferred, we want to throttle 
                 "maxTemperature":65,
         }
 
-### Create a New Flight [POST]
+### Create a New Flight [PUT]
+
++ Parameters
+
+    + flightTime: 12345 (number)
+    + duration: 32221
 
 + Response 201 (application/json)
 
