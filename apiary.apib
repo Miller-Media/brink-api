@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://api.joinbrink.com/
 
 # Brink API
 
@@ -50,6 +50,14 @@ Since there is going to be a lot of data being transferred, we want to throttle 
           "created": "Tue, 29 Aug 2017 16:08:36 GMT", 
           "modified": "Tue, 29 Aug 2017 16:08:36 GMT"
         }
+
+### Get JWT Token [POST /auth]
+
++ Parameters
+    
+    + username: `wwhite` (string, required)
+    + password: `3kj;15j3` (string, required)
+
 
 ## Flights [/v1/flights]
 
