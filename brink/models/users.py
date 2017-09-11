@@ -41,6 +41,17 @@ class User( BaseModelWithMeta ):
         if len( args ) > 3 : self.first_name   = args[3]
         if len( args ) > 4 : self.last_name    = args[4]
         if len( kwargs ) > 0 : super( User, self ).__init__( **kwargs )
+        
+    def asApiDict( self, *args, **kwargs ):
+        """ Get a dictionary that represents this object in api responses 
+        
+        Returns:
+            dict
+        """
+        
+        api_dict = super(User, self).asApiDict(*args, **kwargs)
+        api_dict.pop('password', None)
+        return api_dict
 
     def setPassword( self, password ):
         """ Set the password for a user

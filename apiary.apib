@@ -20,6 +20,7 @@ when authenticated. Once a JWT token has been obtained for a user, it must be pa
 API request in the request header using the "Authorization" header. The token should be prefixed with 
 "JWT" in the header.
 
+Example: 
 ```
 GET https://api.joinbrink.com/v1/flights
 Authorization: JWT eyJhbGciOiJIUzI1NiIsI...
@@ -29,6 +30,8 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsI...
 ## Users [/v1/users]
 
 ### Create New User [PUT]
+
+Create a new user of the brink api
 
 + Request (application/json)
     
@@ -51,6 +54,8 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsI...
         
 ### Get User [GET /v1/users/{user_id}]
 
+Get a user of the brink api
+
 + Parameters
 
     + user_id (number, required) - The id of the user to fetch 
@@ -69,7 +74,31 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsI...
           "modified": "Tue, 29 Aug 2017 16:08:36 GMT"
         }
 
+### Login User [POST /v1/login]
+
+Authenticate a user and get the user details with a jwt token
+
++ Request (application/json)
+
+    + Attributes
+        + username: `wwhite` (string, required)
+        + password: `3kj;15j3` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + id: 1 (number)
+        + username: `admin` (string)
+        + email: `matt@miller-media.com` (string)
+        + first_name: null 
+        + last_name: null 
+        + date_created: `2017-08-30 23:51:55` (string)
+        + date_modified: `2017-08-30 23:51:55` (string)
+        + jwt_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6MSwiaWF0IjoxNTA1MTY3MTM1LCJuYmYiOjE1MDUxNjcxMzUsImV4cCI6MTUzNjcwMzEzNX0.ZbsimRGhoV1sBtK5vdqVoPe_CwrXJLYSsd3VYRPJAFU` (string)
+
 ### Get JWT Token [POST /auth]
+
+Authenticate user and get a jwt token only
 
 + Request (application/json)
     
@@ -79,11 +108,9 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsI...
 
 + Response 200 (application/json)
 
-    + Body
-    
-        {
-            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6MSwiaWF0IjoxNTA1MTQ4MjczLCJuYmYiOjE1MDUxNDgyNzMsImV4cCI6MTUzNjY4NDI3M30.55f-mU_VmZXADK6Q2WY3xtmk9giN3PG4w2vgM9xy4sQ"
-        }
+    + Attributes
+        + access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6MSwiaWF0IjoxNTA1MTQ4MjczLCJuYmYiOjE1MDUxNDgyNzMsImV4cCI6MTUzNjY4NDI3M30.55f-mU_VmZXADK6Q2WY3xtmk9giN3PG4w2vgM9xy4sQ` (string)
+
         
 ## Flights [/v1/flights]
 

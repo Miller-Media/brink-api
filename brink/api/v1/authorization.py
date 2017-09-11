@@ -43,7 +43,6 @@ def login():
         raise ApiException('Incorrect password.')
 
     user_data = user.asApiDict()
-    user_data['sessions'] = [ session.id for session in user.sessions ]
     user_data['jwt_token'] = api.jwt.jwt_encode_callback( user )
 
     # remap keys for expected response
