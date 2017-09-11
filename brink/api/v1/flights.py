@@ -154,11 +154,11 @@ def create_flight_data():
 @blueprint.route( '/flights/<int:flight_id>/data', methods=[ 'POST' ] )
 @api.handle_errors()
 @api.require_auth()
-def get_flight_data_paged( session_id ):
-    """ Get the messages for a session in paged format
+def get_flight_data_paged( flight_id ):
+    """ Get the data for a flight in paged format
 
     Args:
-        session_id (int): 			The session id
+        flight_id (int): 			The flight id
 
     Returns:
         dict:		Api response
@@ -183,7 +183,7 @@ def get_flight_data_paged( session_id ):
         'total'    : paged_data.total,
         'page'     : paged_data.page,
         'per_page' : paged_data.per_page,
-        'messages' : { message.id: message.asApiDict() for message in paged_messages.items }
+        'data'     : [ data.asApiDict() for data in paged_data.items ]
     }  
 
 @blueprint.route( '/flights/<int:flight_id>/meta', methods=[ 'GET' ] )

@@ -120,10 +120,9 @@ This endpoint will return a list of all available flight ids
 
 ### Create a New Flight [PUT]
 
-+ Parameters
++ Request (application/json)
 
-    + flightTime: 12345 (number)
-    + duration: 32221
+    + Attributes
 
 + Response 201 (application/json)
 
@@ -135,40 +134,29 @@ This endpoint will return a list of all available flight ids
                 "id":9
             }
             
-## Flight Data [/v1/flights/{flight_id}/data{?postsPerPage,page}]
+## Flight Data [/v1/flights/{flight_id}/data]
+
+### Get Data for Flight [GET /v1/flights/{flight_id}/data]
 
 + Parameters
+
     + flight_id (number) - ID of the flight in the form of an integer
+    
++ Request (application/json)
 
-### Get Data for Flight [GET]
+    + page (number) - The page number being requested, defaults to 1 if not provided
+    + per_page (number) - The number of results to show per page
 
-+ Parameters
-    + postsPerPage (optional) - Number of records returned per page. Maximum 250.
-    + page (optional) - Page of results to return.
++ Response 201 (application/json)
 
-+ Response 200 (application/json)
+    + Attributes
+        + pages (number) - The total number of pages of data available
+        + total (number) - The total number of data items available
+        + page (number) - The current page of data that is being returned
+        + per_page (number) - The number of results requested per page
+        + data (array[Flight Data])
 
-    + Body
-
-        {
-            "213412355": {
-                "altitude": 1234,
-                "barometricPressure": 1234143,
-                "coordinateX": 23.234,
-                "coordinateY": 23.2352,
-                "temperature": 23
-            },
-            "213412360": {
-                "altitude": 1240,
-                "barometricPressure": 1234943,
-                "coordinateX": 26.234,
-                "coordinateY": 24.2352,
-                "temperature": 20
-            },
-            "nextPage": 2
-        }
-
-### Create New Flight Data Record [POST]
+### Create New Flight Data Record [PUT /v1/flights/{flight_id}/data]
 
 + Request (application/json)
 
@@ -189,3 +177,14 @@ This endpoint will return a list of all available flight ids
             "message":"Flight data created."
         }
 
+# Data Structures
+
+## Flight Data (object)
+
++ flight_id (number) - The id of the flight the data is associated with
++ timestamp (number) - The timestamp that the data point was collected
++ coordinateX (number) - The X coordinate where the data point was collected
++ coordinateY (number) - The Y coordinate where the data point was collected
++ pressure (number) - The pressure at the time the data point was collected
++ temperature (number) - The temperature at the time the data point was collected
++ altitude (number) - The altitude at which the data point was collected
