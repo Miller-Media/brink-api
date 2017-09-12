@@ -51,7 +51,7 @@ def create_user():
 
     return {
                'success': 'User created.',
-               'response_id': user.id,
+               'user_id': user.id,
                'jwt_token': api.jwt.jwt_encode_callback( user )
            }, 201
 
