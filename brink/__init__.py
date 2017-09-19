@@ -1,4 +1,5 @@
 from flask import Flask, Response, jsonify
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -107,6 +108,7 @@ class Brink( Flask ):
 		
 ### Init App ###
 app = Brink( __name__ )
+CORS(app)
 
 # Configuration
 app.config.from_object( 'config' )
