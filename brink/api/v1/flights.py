@@ -118,7 +118,7 @@ def delete_flight(flight_id):
 @blueprint.route('/flights/<int:flight_id>/data', methods=['PUT'])
 @api.handle_errors()
 @api.require_auth()
-def create_flight_data():
+def create_flight_data( flight_id ):
     """ Create a new flight data point
 
     Returns:
@@ -144,7 +144,7 @@ def create_flight_data():
 
     # create the flight
     datapoint = FlightDataPoint(**data)
-    datapoint.flight = flight.id
+    datapoint.flight = flight
     datapoint.save()
     
     return {
